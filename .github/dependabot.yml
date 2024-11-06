@@ -1,0 +1,104 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+registries:
+  acr:
+    type: docker-registry
+    url: dvagcr.azurecr.io
+    username: ${{secrets.CONTAINER_REGISTRY_USER}}
+    password: ${{secrets.CONTAINER_REGISTRY_PASSWORD}}
+  npm-github:
+    type: npm-registry
+    url: https://npm.pkg.github.com/
+    token: ${{secrets.PACKAGES_PAT}}
+  maven-github:
+    type: maven-repository
+    url: https://maven.pkg.github.com/dvag
+    username: user
+    password: ${{secrets.PACKAGES_PAT}}
+updates:
+  - package-ecosystem: npm
+    directory: /frontend
+    registries:
+      - npm-github
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 25
+    groups:
+      angular-cli-dependencies:
+        patterns:
+          - "@angular-devkit/build-angular"
+          - "@angular/cli"
+      angular-core-dependencies:
+        patterns:
+          - "@angular/animations"
+          - "@angular/common"
+          - "@angular/compiler"
+          - "@angular/core"
+          - "@angular/forms"
+          - "@angular/platform-browser"
+          - "@angular/platform-browser-dynamic"
+          - "@angular/router"
+          - "@angular/compiler-cli"
+      angular-ngrx-dependencies:
+        patterns:
+          - "@ngrx*"
+      angular-eslint-dependencies:
+        patterns:
+          - "@angular-eslint*"
+      typescript-eslint-dependencies:
+        patterns:
+          - "@typescript-eslint*"
+      design-system-dependencies:
+        patterns:
+          - "@dvag/design-system*"
+  - package-ecosystem: npm
+    directory: /e2e-tests
+    registries:
+      - npm-github
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 25
+    groups:
+      typescript-eslint-dependencies:
+        patterns:
+          - "@typescript-eslint*"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+  - package-ecosystem: maven
+    directory: /backend
+    registries:
+      - maven-github
+    schedule:
+      interval: daily
+    groups:
+      spring-dependencies:
+        patterns:
+          - org.springframework*
+      processing-orders-dependencies:
+        patterns:
+          - com.dvag:web-vp-commons-pdfservice
+          - com.dvag:processingorders
+      netty-dependencies:
+        patterns:
+          - io.netty*
+      logback-dependencies:
+        patterns:
+          - ch.qos.logback*
+  - package-ecosystem: docker
+    directory: /backend/
+    registries:
+      - acr
+    schedule:
+      interval: daily
+  - package-ecosystem: docker
+    directory: /frontend/
+    registries:
+      - acr
+    schedule:
+      interval: daily
