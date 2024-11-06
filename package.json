@@ -1,0 +1,76 @@
+{
+  "name": "@dvag/vp-digital-investment-pages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate-apis": "openapi-generator-cli generate && npx prettier --write shared/gen/apis",
+    "generate-apis-local": "rimraf shared/gen/apis && openapi-generator-cli generate && npx prettier --write shared/gen/apis",
+    "build": "tsc --project tsconfig.json --outDir dist/",
+    "lint": "eslint",
+    "prettier:check": "prettier --check .",
+    "prettier:format": "prettier --write .",
+    "show-report": "npx playwright show-report",
+    "test": "npm i && npx playwright install && npx playwright test tests/entwicklung/ --forbid-only",
+    "test-abnahme": "npx playwright test --project abnahme",
+    "test-abnahme-debug": "npx playwright test --project abnahme --debug",
+    "test-abnahme-ui": "npx playwright test --project abnahme --ui",
+    "test-entwicklung": "npx playwright test --project entwicklung",
+    "test-entwicklung-debug": "npx playwright test --project entwicklung --debug",
+    "test-entwicklung-ui": "npx playwright test --project entwicklung --ui",
+    "test-integration": "npx playwright test --project integration",
+    "test-integration-debug": "npx playwright test --project integration --debug",
+    "test-integration-ui": "npx playwright test --project integration --ui",
+    "test-integration-api": "npx playwright test --project integration-api-test",
+    "test-integration-api-debug": "npx playwright test --project integration-api-test --debug",
+    "test-local": "npx playwright test --project local",
+    "test-local-debug": "npx playwright test --project local --debug",
+    "test-local-ui": "npx playwright test --project local --ui",
+    "test-produktion": "npm run generate-apis && npx playwright test --project produktion",
+    "test-produktion-debug": "npx playwright test --project produktion --debug",
+    "test-produktion-ui": "npx playwright test --project produktion --ui",
+    "tsc": "npx tsc "
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@dvag/vp-digital-pages": "^1.33.2",
+    "@dvag/vp-digital-schnittstellen-1": "npm:@dvag/vp-digital-schnittstellen@1.39.10",
+    "@dvag/vp-digital-schnittstellen-2": "npm:@dvag/vp-digital-schnittstellen@2.10.4",
+    "@dvag/vpd-kontoeroeffnung-pages": "^3.1.0",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.9.1",
+    "@dvag/vp-digital-investmentdialog-pages": "2.81.0",
+    "@openapitools/openapi-generator-cli": "^2.13.4",
+    "@playwright/test": "^1.46.0",
+    "@types/diff": "^5.2.1",
+    "@types/node": "^22.3.0",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.2.0",
+    "@typescript-eslint/parser": "^8.2.0",
+    "@typescript-eslint/types": "^8.0.0",
+    "allure-playwright": "^3.0.0",
+    "eslint": "^9.9.1",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.4.0",
+    "@azure/keyvault-secrets": "^4.8.0",
+    "@dvag/vpd-abschluss-pages": "^2.11.0",
+    "diff": "^7.0.0",
+    "dotenv": "^16.4.5",
+    "glob": "^11.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dvag/vp-digital-investment-frontend.git",
+    "directory": "pages"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
